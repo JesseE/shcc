@@ -1,0 +1,42 @@
+.page-header-top {
+  display: flex;
+  height: 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-header-top__block {
+  display: flex;
+  align-items: center;
+  font-size: 0.625rem;
+}
+
+.page-header-top__block-text {
+  color: var(--blue);
+  text-transform: uppercase;
+  border-right: 1px solid;
+  padding: 0 10px;
+  font-weight: 500;
+}
+
+.page-header-top__block-image {
+  width: 18px;
+  height: 18px;
+  fill: var(--blue);
+  position: relative;
+  left: 5px;
+  bottom: 3px;
+}
+
+.page-header-top__block > .page-header-top__block-text:last-child {
+  border-right: none;
+}
+
+.page-header-top__block-text--italic {
+  font-style: italic;
+  text-transform: none;
+  font-size: 0.8125rem;
+}
