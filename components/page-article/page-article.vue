@@ -41,20 +41,22 @@ export default {
         ease:ease
       })
       .to(this.$refs.articleImage,
-        1,{
+        1.5,{
         opacity: 1,
         ease:ease
       }, '-=0.8')
       .to(this.$refs.largeRect,
         1.2,{
+        opacity: 1,
         width: '5vw',
         ease:ease
-      }, '-=1.2')
+      }, '-=1.7')
       .to(this.$refs.smallRect,
         1.2,{
+        opacity: 1,
         width: '0vw',
         ease:ease
-      }, '-=1.2')
+      }, '-=1.7')
     }
   }
 }

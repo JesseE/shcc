@@ -1,6 +1,10 @@
 import pkg from './package'
 
 export default {
+  router: {
+    base: '/'
+  },
+  publicPath: '/',
   mode: 'universal',
 
   /*
@@ -62,7 +66,7 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    extractCSS: true,
+    // extractCSS: true,
     transpile: [
       "gsap"
     ],

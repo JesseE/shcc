@@ -31,17 +31,6 @@ export default {
   mounted() {
     const tm = new TimelineMax({delay: 0.7});
 
-      // [this.$refs.letterL,
-      // this.$refs.letterV,
-      // this.$refs.letterE,
-      // this.$refs.secondLetterL,
-      // this.$refs.letterA].forEach((item, index) => {
-      //   tm.to(item,2,{
-      //     y: -10
-      //   }, index*0.1)
-      // })
-
-
     tm
       .to(this.$refs.pageTitle,
         1,{
@@ -72,7 +61,16 @@ export default {
         css: {
           className: '+=page-title__icon--red'
         },
-      },'+=0.48')
+      },'+=0.48').to(this.$refs.pageTitleIcon, 0.1, {
+        css: {
+          className: '+=page-title__icon--blue'
+        },
+      }, '-=0.5')
+      .to(this.$refs.pageTitleIcon, 0.01, {
+        css: {
+          className: '+=page-title__icon--red'
+        },
+      }, '+=0.49')
   }
 }
 </script>
