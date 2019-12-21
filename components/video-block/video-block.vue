@@ -32,7 +32,7 @@
 <script>
 import playButton from '../../images/icons/play-button-icon.svg';
 import pauseButton from '../../images/icons/pause-button-icon.svg';
-import { TimelineMax, TweenLite } from 'gsap';
+import { TimelineMax, TweenMax } from 'gsap';
 
 export default {
   name: 'videoBlock',
@@ -54,8 +54,10 @@ export default {
   },
   methods: {
     setArc(circumfrence) {
+      this.rotateAnimation(circumfrence)
+
       this.$refs.videoCurrentLengthArc
-        .setAttribute("d", this.describeArc(150, 150, 100, 0, circumfrence));
+        .setAttribute("d", this.describeArc(150, 150, 100, -circumfrence, circumfrence ))
 
       this.$refs.videoLengthArc
         .setAttribute("d", this.describeArc(150, 150, 100, 0, circumfrence));
@@ -84,7 +86,7 @@ export default {
     setIndicator(circumfrenceDeg) {
       this.$refs.indicator
         .setAttribute('style',
-          `transform:rotate(${circumfrenceDeg}deg); opacity: 1; `);
+          `transform:rotate(${circumfrenceDeg}deg); transform-origin: 50% 50%; opacity: 1;`);
     },
     videoControl() {
       this.iconAnimation()
@@ -121,7 +123,6 @@ export default {
     },
     pauseState() {
       this.$refs.videoEl.pause(),
-
       this.setArc(
         (360/this.$refs.videoEl.duration)*this.$refs.videoEl.currentTime
       ),
@@ -132,6 +133,13 @@ export default {
       this.videoStarted = true,
       this.showVideoControls()
       this.textAnimation()
+    },
+    rotateAnimation(circumfrence) {
+      TweenMax
+        .to(this.$refs.videoBlockArc, 1, {
+          rotate: `${circumfrence}_cw`,
+          transformOrigin: "50% 50%"
+        })
     },
     animateArcLength() {
       const tm = new TimelineMax()
@@ -163,7 +171,7 @@ export default {
         })
     },
     hideVideoControls() {
-      const tm = new TimelineMax({delay: 3})
+      const tm = new TimelineMax()
         tm.to(this.$refs.videoControlsEl, 0.3, {
           scale: 0,
           transformOrigin: "50% 50%"
