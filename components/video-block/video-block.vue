@@ -169,9 +169,10 @@ export default {
 
       const tm = new TimelineMax()
 
-      if(!this.videoStarted) {
+      !this.videoStarted
+      ?
         tm
-          .to(this.$refs.videoCurrentLengthArc, 0.1, {
+         .to(this.$refs.videoCurrentLengthArc, 0.1, {
             opacity: 0,
             transformOrigin: "50% 50%" })
           .to(this.$refs.videoLengthArc, 0.3, {
@@ -187,27 +188,25 @@ export default {
             scale: 1,
             transformOrigin: "50% 50%",
           })
-      } else {
+      :
         tm
           .to(this.$refs.videoCurrentLengthArc, 0.1, {
             opacity: 0, })
           .to(this.$refs.indicator, 0.1, {
             opacity: 0, })
+          .to(this.$refs.videoBlockArc, 0.1, {
+            opacity: 1, })
           .to(this.$refs.videoControlsEl, 0.3, {
             scale: 1,
             transformOrigin: "50% 50%"})
-          .to(this.$refs.videoBlockArc, 0.1, {
-            opacity: 1, })
-          .to(this.$refs.videoLengthArc, 0.3, {
-            scale: 0.2,
-            opacity: 0.3,
-            transformOrigin: "50% 50%" }, '-=0.6')
-          .to(this.$refs.videoLengthArc, 0.3, {
-            scale: 0.4,
+          .fromTo(this.$refs.videoLengthArc, 0.3, {
+            scale: 0.1,
             transformOrigin: "50% 50%",
             strokeWidth: '100px',
-            opacity: 0.5 }, '-=0.3')
-      }
+            opacity: 0},{scale: 0.4,
+            transformOrigin: "50% 50%",
+            strokeWidth: '100px',
+            opacity: 0.5},'-=0.3')
     },
     hideVideoControls() {
       const tm = new TimelineMax()
@@ -217,37 +216,37 @@ export default {
             transformOrigin: "50% 50%"})
           .to(this.$refs.videoBlockArc, 0.1, {
             opacity: 0,
-          })
+          },'-=0.3')
     },
     iconAnimation() {
       const tm = new TimelineMax()
 
-      if(this.videoPlayState) {
-          tm.to(this.$refs.playButtonEl.$el, 0.1, {
-          opacity: 0
-        }).to(this.$refs.pauseButtonEl.$el, 0.1, {
-          opacity: 1
-        })
-      } else {
-        tm.to(this.$refs.playButtonEl.$el, 0.1, {
-          opacity: 1
-        }).to(this.$refs.pauseButtonEl.$el, 0.1, {
-          opacity: 0
-        })
-      }
+      this.videoPlayState
+      ?
+       tm
+        .to(this.$refs.playButtonEl.$el, 0.1, {
+          opacity: 0 })
+        .to(this.$refs.pauseButtonEl.$el, 0.1, {
+          opacity: 1 }).timeScale(2)
+      :
+        tm
+          .to(this.$refs.playButtonEl.$el, 0.1, {
+          opacity: 1 })
+          .to(this.$refs.pauseButtonEl.$el, 0.1, {
+          opacity: 0 }).timeScale(2)
     },
     textAnimation() {
       const tm = new TimelineMax()
 
-      if (!this.videoPaused) {
-        tm.to(this.$refs.textContainer, 0.3, {
-          y: 0
-        })
-      } else {
-        tm.to(this.$refs.textContainer, 0.3, {
-          y: -25
-        })
-      }
+      !this.videoPaused
+      ?
+        tm
+          .to(this.$refs.textContainer, 0.3, {
+          y: 0 })
+      :
+        tm
+          .to(this.$refs.textContainer, 0.3, {
+          y: -25 })
     }
   }
 }

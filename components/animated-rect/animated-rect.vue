@@ -26,7 +26,6 @@ export default {
           width: '80%',
           ease: Power4.easeInOut
         }, '-=1.8')
-
     }
   }
 }

@@ -21,7 +21,7 @@
 
 <script>
 import loveIcon from '../../images/icons/heart.svg'
-import { TimelineMax } from 'gsap'
+import { TimelineMax, Power4 } from 'gsap'
 
 export default {
   name: 'pageTitle',
@@ -30,11 +30,13 @@ export default {
   },
   mounted() {
     const tm = new TimelineMax({delay: 0.7});
+    const tmFast = new TimelineMax({delay: 1.7});
 
     tm
-      .to(this.$refs.pageTitle,
-        1,{
-        opacity: 1
+      .to(this.$refs.pageTitle,1, {
+        opacity: 1,
+        y: -10,
+        ease: Power4.easeInOut
       })
       .to(this.$refs.smallPageTitle, 0.4, {
         y: -30
@@ -42,35 +44,40 @@ export default {
       .to(this.$refs.iconContainer, 1, {
         y: -50
       },'-=1')
-      .to(this.$refs.pageTitleIcon, 0.1, {
-        css: {
-          className: '+=page-title__icon--blue'
-        },
-      }, '-=0.5')
-      .to(this.$refs.pageTitleIcon, 0.01, {
-        css: {
-          className: '+=page-title__icon--red'
-        },
-      }, '+=0.49')
-      .to(this.$refs.pageTitleIcon, 0.01, {
-        css: {
-          className: '+=page-title__icon--blue'
-        },
-      },'+=0.47')
-      .to(this.$refs.pageTitleIcon, 0.01, {
-        css: {
-          className: '+=page-title__icon--red'
-        },
-      },'+=0.48').to(this.$refs.pageTitleIcon, 0.1, {
-        css: {
-          className: '+=page-title__icon--blue'
-        },
-      }, '-=0.5')
-      .to(this.$refs.pageTitleIcon, 0.01, {
-        css: {
-          className: '+=page-title__icon--red'
-        },
-      }, '+=0.49')
+
+    tmFast
+      .timeScale(1)
+      .to(this.$refs.pageTitleIcon, 0.5, {
+      css: {
+        className: '+=page-title__icon--blue'
+      },
+    })
+    .to(this.$refs.pageTitleIcon, 0.5, {
+      css: {
+        className: '+=page-title__icon--red'
+      },
+    })
+    .to(this.$refs.pageTitleIcon, 0.5, {
+      css: {
+        className: '+=page-title__icon--blue'
+      },
+    })
+    .to(this.$refs.pageTitleIcon, 0.5, {
+      css: {
+        className: '+=page-title__icon--red'
+      },
+    }).to(this.$refs.pageTitleIcon, 0.5, {
+      css: {
+        className: '+=page-title__icon--blue'
+      },
+    })
+    .to(this.$refs.pageTitleIcon, 1, {
+      css: {
+        className: '+=page-title__icon--red'
+      },
+    })
+
+
   }
 }
 </script>
