@@ -1,11 +1,14 @@
 .page-title {
-  position: absolute;
-  z-index: 1;
-  display: flex;
-  flex-flow: row wrap;
-  top: 210px;
-  left: 0px;
-  opacity: 0;
+  display: none;
+  @media(min-width: 1024px) {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    flex-flow: row wrap;
+    top: 210px;
+    left: 0px;
+    opacity: 0;
+  }
 }
 
 .page-title__container {

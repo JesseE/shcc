@@ -11,13 +11,16 @@
     </div>
     <svg
       class="video-block__controls-arc"
-     :class="{'video-block__controls-arc--hide' : !this.videoPaused }"
+      :class="{'video-block__controls-arc--hide' : !this.videoPaused  }"
       ref="videoBlockArc">
-      <path ref="videoLengthArc" fill="none"/>
-      <path ref="videoCurrentLengthArc" fill="none" opacity="0"/>
+      <path ref="videoLengthArc" fill="none" />
+      <path ref="videoCurrentLengthArc" fill="none" />
       <line ref="indicator" x1="155" x2="165" y1="130" y2="50" />
     </svg>
-    <div class="video-block__controls" ref="videoControlsEl" @click="videoControl">
+    <div class="video-block__controls"
+         ref="videoControlsEl"
+         @click="videoControl"
+    >
       <playButton ref="playButtonEl" />
       <pauseButton ref="pauseButtonEl" />
     </div>
@@ -32,7 +35,7 @@
 <script>
 import playButton from '../../images/icons/play-button-icon.svg';
 import pauseButton from '../../images/icons/pause-button-icon.svg';
-import { TimelineMax, TweenMax } from 'gsap';
+import { TimelineMax, TweenMax, Power4 } from 'gsap';
 
 export default {
   name: 'videoBlock',
@@ -53,14 +56,44 @@ export default {
     this.setArc(359.99)
   },
   methods: {
+    videoControl() {
+      this.iconAnimation()
+
+      this.videoPlayState
+        ? this.playState() : this.pauseState()
+
+      this.videoPlayState = !this.videoPlayState
+    },
+    playState() {
+      this.$refs.videoEl.play(),
+      this.videoPaused = false,
+      this.videoStarted = true,
+      this.hideVideoControls()
+      this.textAnimation()
+    },
+    pauseState() {
+      this.$refs.videoEl.pause(),
+      this.setArc(
+        (360/this.$refs.videoEl.duration)*this.$refs.videoEl.currentTime
+      ),
+      this.setIndicator(
+        ((360/this.$refs.videoEl.duration)*this.$refs.videoEl.currentTime)
+      ),
+      this.videoPaused = true,
+      this.videoStarted = true,
+      this.showVideoControls()
+      this.textAnimation()
+    },
     setArc(circumfrence) {
       this.rotateAnimation(circumfrence)
 
       this.$refs.videoCurrentLengthArc
-        .setAttribute("d", this.describeArc(150, 150, 100, -circumfrence, circumfrence ))
+        .setAttribute("d", this.describeArc(150, 150, 100, -circumfrence, 0))
 
-      this.$refs.videoLengthArc
-        .setAttribute("d", this.describeArc(150, 150, 100, 0, circumfrence));
+
+      if(!this.videoStarted)
+        return this.$refs.videoLengthArc
+          .setAttribute("d", this.describeArc(150, 150, 100, 0, circumfrence));
     },
     describeArc(x, y, radius, startAngle, endAngle) {
       const start = this.polarToCartesian(x, y, radius, endAngle);
@@ -85,69 +118,48 @@ export default {
     },
     setIndicator(circumfrenceDeg) {
       this.$refs.indicator
-        .setAttribute('style',
-          `transform:rotate(${circumfrenceDeg}deg); transform-origin: 50% 50%; opacity: 1;`);
-    },
-    videoControl() {
-      this.iconAnimation()
+        .setAttribute('style', 'transform: rotate(-9deg); transform-origin: 50% 50%;')
 
-      this.videoPlayState
-        ? this.playState() : this.pauseState()
-
-      this.videoPlayState = !this.videoPlayState
+      TweenMax.to(this.$refs.indicator, 0.3, {
+        opacity: 1,
+      })
     },
     defaultState() {
       if(this.videoStarted) return;
+
       const tm = new TimelineMax()
 
       tm
         .to(this.$refs.videoLengthArc, 0.3, {
-          scale:0.2,
+          scale: 0.2,
           transformOrigin: "50% 50%",
           strokeWidth: '3px',
           opacity: 1
         })
         .to(this.$refs.videoLengthArc, 0.3, {
-          scale:1,
+          scale: 1,
           transformOrigin: "50% 50%",
         }).to(this.$refs.videoControlsEl, 0.3, {
           opacity: 1
       })
     },
-    playState() {
-      this.$refs.videoEl.play(),
-      this.videoPaused = false,
-      this.videoStarted = true,
-      this.hideVideoControls()
-      this.textAnimation()
-    },
-    pauseState() {
-      this.$refs.videoEl.pause(),
-      this.setArc(
-        (360/this.$refs.videoEl.duration)*this.$refs.videoEl.currentTime
-      ),
-      this.setIndicator(
-        ((360/this.$refs.videoEl.duration)*this.$refs.videoEl.currentTime) - 8
-      ),
-      this.videoPaused = true,
-      this.videoStarted = true,
-      this.showVideoControls()
-      this.textAnimation()
-    },
     rotateAnimation(circumfrence) {
-      TweenMax
-        .to(this.$refs.videoBlockArc, 1, {
-          rotate: `${circumfrence}_cw`,
-          transformOrigin: "50% 50%"
-        })
+      const tm = new TimelineMax()
+
+      tm.to(this.$refs.videoBlockArc, 0.5, {
+        rotate: `${circumfrence}_cw`,
+        opacity: 1,
+        ease: Power4.easeOut
+      })
     },
     animateArcLength() {
       const tm = new TimelineMax()
 
       tm
-        .to(this.$refs.videoLengthArc,0.1, {
-          opacity: 0})
-        .to(this.$refs.videoCurrentLengthArc,0.1, {
+        .to(this.$refs.videoLengthArc, 0.1, {
+          opacity: 0
+        })
+        .to(this.$refs.videoCurrentLengthArc, 0.3, {
           opacity: 1,
           transformOrigin: "50% 50%"
         })
@@ -157,25 +169,55 @@ export default {
 
       const tm = new TimelineMax()
 
-      tm.to(this.$refs.videoLengthArc, 0.3, {
-          scale: 0.3,
-          transformOrigin: "50% 50%" })
-        .to(this.$refs.videoLengthArc, 0.3, {
-          scale: 0.4,
-          transformOrigin: "50% 50%",
-          strokeWidth: '100px',
-          opacity: 0.5 })
-        .to(this.$refs.videoControlsEl, 0.3, {
-          scale: 1,
-          transformOrigin: "50% 50%",
-        })
+      if(!this.videoStarted) {
+        tm
+          .to(this.$refs.videoCurrentLengthArc, 0.1, {
+            opacity: 0,
+            transformOrigin: "50% 50%" })
+          .to(this.$refs.videoLengthArc, 0.3, {
+            scale: 0.3,
+            opacity: 0.3,
+            transformOrigin: "50% 50%" })
+          .to(this.$refs.videoLengthArc, 0.3, {
+            scale: 0.4,
+            transformOrigin: "50% 50%",
+            strokeWidth: '100px',
+            opacity: 0.5 })
+          .to(this.$refs.videoControlsEl, 0.3, {
+            scale: 1,
+            transformOrigin: "50% 50%",
+          })
+      } else {
+        tm
+          .to(this.$refs.videoCurrentLengthArc, 0.1, {
+            opacity: 0, })
+          .to(this.$refs.indicator, 0.1, {
+            opacity: 0, })
+          .to(this.$refs.videoControlsEl, 0.3, {
+            scale: 1,
+            transformOrigin: "50% 50%"})
+          .to(this.$refs.videoBlockArc, 0.1, {
+            opacity: 1, })
+          .to(this.$refs.videoLengthArc, 0.3, {
+            scale: 0.2,
+            opacity: 0.3,
+            transformOrigin: "50% 50%" }, '-=0.6')
+          .to(this.$refs.videoLengthArc, 0.3, {
+            scale: 0.4,
+            transformOrigin: "50% 50%",
+            strokeWidth: '100px',
+            opacity: 0.5 }, '-=0.3')
+      }
     },
     hideVideoControls() {
       const tm = new TimelineMax()
-        tm.to(this.$refs.videoControlsEl, 0.3, {
-          scale: 0,
-          transformOrigin: "50% 50%"
-       })
+        tm
+          .to(this.$refs.videoControlsEl, 0.3, {
+            scale: 0,
+            transformOrigin: "50% 50%"})
+          .to(this.$refs.videoBlockArc, 0.1, {
+            opacity: 0,
+          })
     },
     iconAnimation() {
       const tm = new TimelineMax()
