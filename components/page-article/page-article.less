@@ -7,7 +7,7 @@
 
 .page-article__text-block {
   width: 240px;
-  margin: auto 20px 200px 20px;
+  margin: auto var(--spacing-m) 200px var(--spacing-m);
   display: flex;
   flex-direction: column;
   opacity: 0;
@@ -20,7 +20,7 @@
   letter-spacing: 10px;
   color: var(--dark-blue);
   text-transform: uppercase;
-  margin-bottom: 40px;
+  margin-bottom: var(--spacing-l);
 }
 
 .page-article__title--red {
@@ -45,18 +45,18 @@
 
 .page-article__button {
   border: none;
-  border-radius: 20px;
+  border-radius: var(--spacing-m);
   width: 210px;
   height: 40px;
   background: var(--red);
-  padding: 10px 50px;
+  padding: var(--spacing-s) calc(var(--spacing-m) * 2.5);
   text-align: center;
   outline:none;
 }
 
 .page-article__button-text {
   color: white;
-  font-size: 20px;
+  font-size: var(--spacing-m);
   font-family:'heroiccondensed-medium';
   text-transform: uppercase;
 }
