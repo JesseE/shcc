@@ -67,9 +67,9 @@ export default {
     ** You can extend webpack config here
     */
     // extractCSS: true,
-    transpile: [
-      "gsap"
-    ],
+    // transpile: [
+    //   "gsap"
+    // ],
     extend(config, ctx) {
     }
   }

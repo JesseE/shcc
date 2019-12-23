@@ -15,9 +15,9 @@
     <div class="page-article__image-container" ref="articleImage">
       <img src="../../images/tommy-denim__header-men.jpg"/>
     </div>
-    <div class="animated-block">
-      <div class="animated-rectangle--large" ref="largeRect"></div>
-      <div class="animated-rectangle" ref="smallRect"></div>
+    <div class="page-article__animated-block">
+      <div class="page-article__animated-rectangle" ref="smallRect"></div>
+      <div class="page-article__animated-rectangle--large" ref="largeRect"></div>
     </div>
   </article>
 </template>
@@ -48,20 +48,16 @@ export default {
       .to(this.$refs.largeRect,
         1.2,{
         opacity: 1,
-        width: '5vw',
+        width: '0vw',
         ease:ease
       }, '-=1.7')
       .to(this.$refs.smallRect,
         1.2,{
         opacity: 1,
-        width: '0vw',
+        width: '5vw',
         ease:ease
       }, '-=1.7')
     }
   }
 }
 </script>
-
-<style>
-
-</style>
