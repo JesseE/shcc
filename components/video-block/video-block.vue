@@ -35,7 +35,7 @@
 <script>
 import playButton from '../../images/icons/play-button-icon.svg';
 import pauseButton from '../../images/icons/pause-button-icon.svg';
-import { TimelineMax, TweenMax, Power4 } from 'gsap';
+import { TimelineMax, TweenMax, Power4 } from 'gsap/dist/gsap';
 
 export default {
   name: 'videoBlock',

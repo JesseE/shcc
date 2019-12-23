@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { TimelineMax, Power4 } from 'gsap'
+import { TimelineMax, Power4 } from 'gsap/dist/gsap'
 
 export default {
   name: 'animatedRect',

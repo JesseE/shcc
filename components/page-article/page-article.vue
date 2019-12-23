@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { TimelineMax, Power3 } from 'gsap'
+import { TimelineMax, Power3 } from 'gsap/dist/gsap'
 
 export default {
   name: 'pageArticle',
