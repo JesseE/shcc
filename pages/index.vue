@@ -4,7 +4,9 @@
     <section class="main__content">
       <pageTitle />
       <pageArticle />
-      <animatedRect />
+      <lazyLoad>
+        <animatedRect />
+      </lazyLoad>
       <videoBlock />
     </section>
   </main>
@@ -13,6 +15,7 @@
 <script>
 export default {
   components: {
+    lazyLoad: () => import('../components/lazy-load/lazy-load'),
     pageTitle: () => import('../components/page-title/page-title'),
     pageHeader: () => import('../components/page-header/page-header'),
     pageArticle: () => import('../components/page-article/page-article'),
