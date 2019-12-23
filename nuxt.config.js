@@ -1,10 +1,6 @@
 import pkg from './package'
 
 export default {
-  router: {
-    base: '/'
-  },
-  publicPath: '/',
   mode: 'universal',
 
   /*
@@ -48,9 +44,7 @@ export default {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
     'nuxt-svg-loader',
-    // '@nuxtjs/pwa',
   ],
   /*
   ** Axios module configuration
@@ -58,7 +52,10 @@ export default {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
-
+  router: {
+    base: '/'
+  },
+  publicPath: '/',
   /*
   ** Build configuration
   */
@@ -66,10 +63,6 @@ export default {
     /*
     ** You can extend webpack config here
     */
-    // extractCSS: true,
-    // transpile: [
-    //   "gsap"
-    // ],
     extend(config, ctx) {
     }
   }

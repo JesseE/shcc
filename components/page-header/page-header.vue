@@ -5,7 +5,7 @@
     </div>
     <div class="page-header__container">
       <div class="page-header__container-image">
-        <img src="../../images/logo.png"/>
+        <img src="../../images/logo.png" alt="tommy hilfiger logo"/>
       </div>
       <navList />
       <searchBar />
