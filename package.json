@@ -1,7 +1,7 @@
 {
-  "name": "scaffolding-nuxt-app",
+  "name": "shcc",
   "version": "1.0.0",
-  "description": "My groundbreaking Nuxt.js project",
+  "description": "SHCC animations assignment",
   "author": "Jesse Eikema",
   "private": true,
   "scripts": {

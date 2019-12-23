@@ -1,6 +1,6 @@
-# scaffolding-nuxt-app
+# SHCC assingment
 
-> My groundbreaking Nuxt.js project
+> SHCC assignment
 
 ## Build Setup
 
