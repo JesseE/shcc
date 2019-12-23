@@ -2,6 +2,8 @@
 
 > SHCC assignment
 
+# it runs live: [here](https://dreamy-brahmagupta-3e0afa.netlify.com)
+
 ## Build Setup
 
 ``` bash
