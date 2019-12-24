@@ -74,13 +74,12 @@ export default {
       this.$refs.videoEl.pause(),
       // 360 = 60.095 (this is the length of the video)
       // then a random value like  5.0 seconds in a video = 30 because 360 / 60 = 6 and 6 * 5.0 = 30
-      // this is how the length of the arc is calculated and same for the angle in the Indicator
+      // this is how the the arc is calculated and same for the angle in the Indicator
       this.setArc(
         (360/this.$refs.videoEl.duration)*this.$refs.videoEl.currentTime
       ),
-      this.setIndicator(
-        ((360/this.$refs.videoEl.duration)*this.$refs.videoEl.currentTime)
-      ),
+
+      this.setIndicator()
       this.videoPaused = true,
       this.videoStarted = true,
       this.showVideoControls()
@@ -118,9 +117,10 @@ export default {
         y: centerY + (radius * Math.sin(angleInRadians))
       };
     },
-    setIndicator(circumfrenceDeg) {
+    setIndicator() {
       this.$refs.indicator
-        .setAttribute('style', 'transform: rotate(-9deg); transform-origin: 50% 50%;')
+        .setAttribute('style',
+          'transform: rotate(-9deg); transform-origin: 50% 50%;')
 
       TweenMax.to(this.$refs.indicator, 0.3, {
         opacity: 1,
