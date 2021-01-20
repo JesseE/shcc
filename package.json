@@ -14,7 +14,7 @@
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^2.6.0",
     "cross-env": "^5.2.0",
-    "gsap": "3.0.4",
+    "gsap": "3.6.0",
     "nuxt": "2.11.0",
     "nuxt-svg-loader": "1.0.1"
   },
